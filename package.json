@@ -1,0 +1,21 @@
+{
+  "name": "superteam-earn-agent",
+  "version": "1.0.0",
+  "description": "Autonomous Agent for Superteam Earn Bounties and Projects",
+  "main": "dist/index.js",
+  "scripts": {
+    "register": "npx tsx src/register.ts",
+    "scan": "npx tsx src/index.ts",
+    "heartbeat": "npx tsx src/heartbeat.ts",
+    "submit": "npx tsx src/submit-cli.ts",
+    "watch": "npx tsx src/daemon.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.0"
+  }
+}
