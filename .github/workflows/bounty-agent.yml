@@ -1,33 +1,35 @@
-name: Superteam Autonomous 24/7 Agent
+name: Superteam Autonomous Bounty Hunter
 
 on:
   schedule:
     # প্রতি ২০ মিনিট পর পর স্বয়ংক্রিয়ভাবে ক্লাউডে রান হবে
     - cron: '*/20 * * * *'
-  workflow_dispatch: # চাইলে গিটহাব থেকে ম্যানুয়ালি ১ ক্লিকে রান করা যাবে
+  workflow_dispatch: # গিটহাব থেকে সরাসরি ম্যানুয়ালি টেস্ট রান করার জন্য বাটন
 
 jobs:
   hunt:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     steps:
-      - name: Checkout code
+      - name: 📥 Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: ⚙️ Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
 
-      - name: Install dependencies
+      - name: 📦 Install Dependencies
         run: npm install
 
-      - name: Run Autonomous Bounty Hunter
+      - name: 🚀 Run Autonomous Superteam Bounty Scanner
         env:
           SUPERTEAM_BASE_URL: https://superteam.fun
           SUPERTEAM_API_KEY: ${{ secrets.SUPERTEAM_API_KEY }}
-          SUPERTEAM_CLAIM_CODE: ${{ secrets.SUPERTEAM_CLAIM_CODE }}
-          SUPERTEAM_AGENT_ID: ${{ secrets.SUPERTEAM_AGENT_ID }}
-          SUPERTEAM_AGENT_NAME: selim-solana-builder
+          OMNIROUTE_BASE_URL: ${{ secrets.OMNIROUTE_BASE_URL }}
+          OMNIROUTE_API_KEY: ${{ secrets.OMNIROUTE_API_KEY }}
           GOOGLE_GENERATIVE_AI_API_KEY: ${{ secrets.GOOGLE_GENERATIVE_AI_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
