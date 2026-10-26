@@ -4,7 +4,7 @@ on:
   schedule:
     # প্রতি ২০ মিনিট পর পর স্বয়ংক্রিয়ভাবে ক্লাউডে রান হবে
     - cron: '*/20 * * * *'
-  workflow_dispatch: # গিটহাব থেকে সরাসরি ম্যানুয়ালি টেস্ট রান করার জন্য বাটন
+  workflow_dispatch:
 
 jobs:
   hunt:
@@ -19,10 +19,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
 
       - name: 📦 Install Dependencies
-        run: npm install
+        run: |
+          npm install
+          npm install -g tsx
 
       - name: 🚀 Run Autonomous Superteam Bounty Scanner
         env:
@@ -33,4 +34,5 @@ jobs:
           GOOGLE_GENERATIVE_AI_API_KEY: ${{ secrets.GOOGLE_GENERATIVE_AI_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: npx tsx src/index.ts
+          TELEGRAM_HANDLE: ${{ secrets.TELEGRAM_HANDLE }}
+        run: tsx src/index.ts
